@@ -27,7 +27,7 @@ async function main() {
 
   const repos = await response.json();
   const pageProjects = repos
-    .filter((repo) => !repo.fork && !repo.archived)
+    .filter((repo) => !repo.fork && !repo.archived && repo.has_pages)
     .map((repo) => ({
       name: titleFromRepo(repo.name),
       slug: repo.name.toLowerCase(),
