@@ -35,7 +35,6 @@ const featuredProjects = projects.filter((project) => project.featured).slice(0,
 const navItems = [
   { label: "Overview", href: "#overview", icon: Blocks },
   { label: "All Projects", href: "#projects", icon: BriefcaseBusiness },
-  { label: "Categories", href: "#filters", icon: Grid2X2 },
   { label: "Status", href: "#stats", icon: Sparkles },
   { label: "About", href: "#about", icon: Info },
   { label: "Contact", href: "#contact", icon: Mail },
@@ -73,44 +72,11 @@ function splitCategory(category: string) {
   return category.split("/").map((item) => item.trim()).filter(Boolean);
 }
 
-function getFilterOptions() {
-  const categorySet = new Set<string>();
-  const statusSet = new Set<string>();
-
-  projects.forEach((project) => {
-    splitCategory(project.category).forEach((category) => categorySet.add(category));
-    statusSet.add(project.status);
-  });
-
-  const preferred = [
-    "AI",
-    "WhatsApp",
-    "Health/Body",
-    "Marketplace",
-    "Legaltech",
-    "Music",
-    "Consumer",
-    "Physical Product",
-    "SaaS",
-    "Pilot-ready",
-    "Paid MVP",
-    "Live",
-  ];
-
-  const options = [...categorySet, ...statusSet];
-  const ordered = preferred.filter((option) => options.includes(option));
-  const rest = options.filter((option) => !ordered.includes(option)).sort((a, b) => a.localeCompare(b));
-  return ["All", ...ordered, ...rest];
-}
-
 function App() {
-  const [activeFilter, setActiveFilter] = useState("All");
   const [query, setQuery] = useState("");
   const [activeProject, setActiveProject] = useState<Project>(featuredProjects[0] ?? projects[0]);
   const [detailProject, setDetailProject] = useState<Project | null>(null);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-
-  const filters = useMemo(getFilterOptions, []);
 
   const stats = useMemo(() => {
     const categoryCount = new Set(projects.flatMap((project) => splitCategory(project.category))).size;
@@ -131,11 +97,6 @@ function App() {
     const normalizedQuery = query.trim().toLowerCase();
 
     return projects.filter((project) => {
-      const matchesFilter =
-        activeFilter === "All" ||
-        project.status === activeFilter ||
-        splitCategory(project.category).includes(activeFilter);
-
       const haystack = [
         project.name,
         project.tagline,
@@ -147,9 +108,9 @@ function App() {
         .join(" ")
         .toLowerCase();
 
-      return matchesFilter && (!normalizedQuery || haystack.includes(normalizedQuery));
+      return !normalizedQuery || haystack.includes(normalizedQuery);
     });
-  }, [activeFilter, query]);
+  }, [query]);
 
   const openDetails = (project: Project) => {
     setActiveProject(project);
@@ -288,20 +249,7 @@ function App() {
           </div>
         </section>
 
-        <section className="project-tools" id="filters" aria-label="Project filters">
-          <div className="filter-pills">
-            {filters.map((filter) => (
-              <button
-                className={filter === activeFilter ? "filter-pill active" : "filter-pill"}
-                key={filter}
-                type="button"
-                onClick={() => setActiveFilter(filter)}
-              >
-                {filter}
-              </button>
-            ))}
-          </div>
-
+        <section className="project-tools" aria-label="Project search">
           <label className="search-box">
             <Search size={17} />
             <input

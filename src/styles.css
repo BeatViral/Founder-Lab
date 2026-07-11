@@ -763,38 +763,13 @@ a {
 
 .project-tools {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(210px, 260px);
-  gap: 14px;
-  margin-top: 18px;
+  grid-template-columns: minmax(230px, 320px);
+  justify-content: end;
+  margin-top: 14px;
   padding: 0;
   border: 0;
   background: transparent;
   box-shadow: none;
-}
-
-.filter-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.filter-pill {
-  min-height: 39px;
-  padding: 0 14px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: rgba(8, 15, 27, 0.78);
-  color: #dbe2f0;
-  font-size: 13px;
-  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-}
-
-.filter-pill:hover,
-.filter-pill.active {
-  transform: translateY(-1px);
-  border-color: rgba(137, 99, 255, 0.62);
-  background: linear-gradient(135deg, #6e45ee, #3b239e);
-  color: white;
 }
 
 .search-box {
@@ -1263,10 +1238,6 @@ a {
 
   .project-tools {
     grid-template-columns: 1fr;
-  }
-
-  .search-box {
-    order: -1;
   }
 
   .project-grid {
