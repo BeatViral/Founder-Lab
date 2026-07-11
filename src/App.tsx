@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type FormEvent } from "react";
 import {
   ArrowUpRight,
   Blocks,
@@ -9,6 +9,7 @@ import {
   Code2,
   ExternalLink,
   FlaskConical,
+  Handshake,
   Github,
   Grid2X2,
   Info,
@@ -51,6 +52,15 @@ const statusClass: Record<string, string> = {
   MVP: "status-mvp",
 };
 
+const activationIntents = [
+  "I want to use this",
+  "I want to pilot this",
+  "I want to partner on this",
+  "I want to sponsor the next build",
+  "I want to license / white-label this",
+  "I want to talk about it",
+];
+
 const iconMap = [
   { test: /ask|whatsapp|message|tom/i, icon: MessageCircle },
   { test: /31|music|artist|phatso|audio/i, icon: Music2 },
@@ -76,6 +86,7 @@ function App() {
   const [query, setQuery] = useState("");
   const [activeProject, setActiveProject] = useState<Project>(featuredProjects[0] ?? projects[0]);
   const [detailProject, setDetailProject] = useState<Project | null>(null);
+  const [activateProject, setActivateProject] = useState<Project | null>(null);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   const stats = useMemo(() => {
@@ -115,6 +126,11 @@ function App() {
   const openDetails = (project: Project) => {
     setActiveProject(project);
     setDetailProject(project);
+  };
+
+  const openActivation = (project: Project) => {
+    setActiveProject(project);
+    setActivateProject(project);
   };
 
   return (
@@ -242,6 +258,7 @@ function App() {
               <ProjectFeatureCard
                 key={project.slug}
                 project={project}
+                onActivate={openActivation}
                 onOpenDetails={openDetails}
                 onSelect={setActiveProject}
               />
@@ -267,6 +284,7 @@ function App() {
               <ProjectCard
                 key={project.slug}
                 project={project}
+                onActivate={openActivation}
                 onOpenDetails={openDetails}
                 onSelect={setActiveProject}
               />
@@ -282,6 +300,16 @@ function App() {
       </main>
 
       <aside className="right-rail">
+        <section className="rail-card activate-rail-card">
+          <p className="rail-kicker">Activate a Project</p>
+          <h2>Activate a Project</h2>
+          <p>Pilot, partner, license, sponsor, or build around any Founder Lab project.</p>
+          <a className="button button-primary full-width" href="#projects">
+            <Handshake size={17} />
+            <span>Browse Projects</span>
+          </a>
+        </section>
+
         <section className="rail-card founder-card" id="about">
           <div className="rail-logo">F</div>
           <p className="rail-kicker">Founder profile</p>
@@ -339,16 +367,22 @@ function App() {
       {detailProject && (
         <ProjectModal project={detailProject} onClose={() => setDetailProject(null)} />
       )}
+
+      {activateProject && (
+        <ActivationModal project={activateProject} onClose={() => setActivateProject(null)} />
+      )}
     </div>
   );
 }
 
 function ProjectFeatureCard({
   project,
+  onActivate,
   onOpenDetails,
   onSelect,
 }: {
   project: Project;
+  onActivate: (project: Project) => void;
   onOpenDetails: (project: Project) => void;
   onSelect: (project: Project) => void;
 }) {
@@ -371,24 +405,36 @@ function ProjectFeatureCard({
             </span>
           ))}
       </div>
-      <button
-        className="card-hit"
-        type="button"
-        data-testid={`feature-details-${project.slug}`}
-        onClick={() => onOpenDetails(project)}
-      >
-        <span>Details</span>
-      </button>
+      <div className="feature-actions">
+        <button
+          className="card-action-button"
+          type="button"
+          data-testid={`feature-details-${project.slug}`}
+          onClick={() => onOpenDetails(project)}
+        >
+          Details
+        </button>
+        <button
+          className="card-action-button primary"
+          type="button"
+          data-testid={`feature-activate-${project.slug}`}
+          onClick={() => onActivate(project)}
+        >
+          Activate
+        </button>
+      </div>
     </article>
   );
 }
 
 function ProjectCard({
   project,
+  onActivate,
   onOpenDetails,
   onSelect,
 }: {
   project: Project;
+  onActivate: (project: Project) => void;
   onOpenDetails: (project: Project) => void;
   onSelect: (project: Project) => void;
 }) {
@@ -428,18 +474,28 @@ function ProjectCard({
               <span className="tag" key={tag}>
                 {tag}
               </span>
-            ))}
+          ))}
         </div>
       </div>
-      <button
-        className="details-link"
-        type="button"
-        data-testid={`details-${project.slug}`}
-        onClick={() => onOpenDetails(project)}
-      >
-        Details
-        <ChevronRight size={14} />
-      </button>
+      <div className="project-card-actions">
+        <button
+          className="details-link"
+          type="button"
+          data-testid={`details-${project.slug}`}
+          onClick={() => onOpenDetails(project)}
+        >
+          Details
+          <ChevronRight size={14} />
+        </button>
+        <button
+          className="activate-link"
+          type="button"
+          data-testid={`activate-${project.slug}`}
+          onClick={() => onActivate(project)}
+        >
+          Activate Project
+        </button>
+      </div>
     </article>
   );
 }
@@ -492,6 +548,131 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
               <Mail size={17} />
             </a>
           </div>
+        </div>
+      </article>
+    </div>
+  );
+}
+
+function ActivationModal({ project, onClose }: { project: Project; onClose: () => void }) {
+  const [intent, setIntent] = useState(activationIntents[1]);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
+  const [message, setMessage] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const submitInterest = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const body = [
+      `Project: ${project.name}`,
+      `Intent: ${intent}`,
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Company / role: ${company || "Not provided"}`,
+      "",
+      "Message:",
+      message || "Not provided",
+    ].join("\n");
+
+    const mailto = `mailto:${founder.email}?subject=${encodeURIComponent(
+      `Founder Lab interest: ${project.name}`,
+    )}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailto;
+    setSubmitted(true);
+  };
+
+  return (
+    <div className="modal-backdrop" role="presentation" onMouseDown={onClose}>
+      <article
+        className="modal-card activation-modal-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={`${project.slug}-activate-title`}
+        onMouseDown={(event) => event.stopPropagation()}
+      >
+        <button className="modal-close" type="button" onClick={onClose} aria-label="Close activation form">
+          <X size={18} />
+        </button>
+        <div className={`modal-preview activation-preview accent-${project.accent}`}>
+          <Handshake size={62} />
+          <span>{project.name}</span>
+        </div>
+        <div className="modal-body activation-body">
+          {submitted ? (
+            <div className="success-state">
+              <span className="success-icon">
+                <Mail size={24} />
+              </span>
+              <h2>Interest ready to send</h2>
+              <p>
+                Your email app should open with the project, intent, and message prefilled for Mahmood.
+              </p>
+              <button className="button button-primary" type="button" onClick={onClose}>
+                Done
+              </button>
+            </div>
+          ) : (
+            <form className="activation-form" onSubmit={submitInterest}>
+              <div className="activation-heading">
+                <span className={`status-badge ${statusClass[project.status]}`}>{project.status}</span>
+                <h2 id={`${project.slug}-activate-title`}>Activate {project.name}</h2>
+                <p>
+                  Founder Lab projects can be piloted, partnered on, licensed, sponsored, or adapted.
+                  Tell me what you&apos;re interested in.
+                </p>
+              </div>
+
+              <fieldset className="intent-options">
+                <legend>Interest</legend>
+                {activationIntents.map((option) => (
+                  <label className={intent === option ? "intent-option selected" : "intent-option"} key={option}>
+                    <input
+                      type="radio"
+                      name="intent"
+                      value={option}
+                      checked={intent === option}
+                      onChange={() => setIntent(option)}
+                    />
+                    <span>{option}</span>
+                  </label>
+                ))}
+              </fieldset>
+
+              <div className="form-grid">
+                <label className="field-label">
+                  <span>Name</span>
+                  <input value={name} onChange={(event) => setName(event.target.value)} required />
+                </label>
+                <label className="field-label">
+                  <span>Email</span>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    required
+                  />
+                </label>
+              </div>
+
+              <label className="field-label">
+                <span>Company / role optional</span>
+                <input value={company} onChange={(event) => setCompany(event.target.value)} />
+              </label>
+
+              <label className="field-label">
+                <span>Message</span>
+                <textarea value={message} onChange={(event) => setMessage(event.target.value)} rows={4} />
+              </label>
+
+              <button className="button button-primary full-width" type="submit">
+                <Mail size={17} />
+                <span>Send Interest</span>
+              </button>
+            </form>
+          )}
         </div>
       </article>
     </div>

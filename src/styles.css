@@ -628,13 +628,37 @@ a {
   line-height: 1.45;
 }
 
-.card-hit {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  border: 0;
-  background: transparent;
-  color: transparent;
+.feature-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.card-action-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 0 11px;
+  border: 1px solid rgba(156, 181, 236, 0.2);
+  border-radius: 6px;
+  background: rgba(8, 15, 27, 0.58);
+  color: #dce6ff;
+  font-size: 12px;
+  font-weight: 760;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.card-action-button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(156, 181, 236, 0.42);
+  background: rgba(23, 34, 58, 0.82);
+}
+
+.card-action-button.primary {
+  border-color: rgba(137, 99, 255, 0.55);
+  background: linear-gradient(135deg, rgba(124, 77, 255, 0.82), rgba(60, 35, 158, 0.78));
+  color: white;
 }
 
 .accent-green::before,
@@ -809,8 +833,8 @@ a {
   display: grid;
   grid-template-columns: 52px minmax(0, 1fr);
   gap: 12px;
-  min-height: 136px;
-  padding: 14px;
+  min-height: 158px;
+  padding: 14px 14px 52px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background:
@@ -881,19 +905,40 @@ a {
   -webkit-line-clamp: 2;
 }
 
-.details-link {
+.project-card-actions {
   position: absolute;
   right: 12px;
   bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.details-link,
+.activate-link {
   display: inline-flex;
   align-items: center;
-  gap: 2px;
+  justify-content: center;
+  gap: 4px;
   border: 0;
   background: transparent;
   color: #9fb4d5;
   font-size: 12px;
-  opacity: 0;
   transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.details-link {
+  opacity: 0;
+}
+
+.activate-link {
+  min-height: 28px;
+  padding: 0 10px;
+  border: 1px solid rgba(137, 99, 255, 0.36);
+  border-radius: 6px;
+  background: rgba(75, 50, 150, 0.32);
+  color: #d8ccff;
+  font-weight: 760;
 }
 
 .project-card:hover .details-link,
@@ -901,7 +946,8 @@ a {
   opacity: 1;
 }
 
-.details-link:hover {
+.details-link:hover,
+.activate-link:hover {
   color: white;
 }
 
@@ -984,6 +1030,15 @@ a {
   background:
     radial-gradient(circle at 12% 0%, rgba(137, 99, 255, 0.26), transparent 52%),
     linear-gradient(180deg, rgba(34, 25, 80, 0.9), rgba(9, 16, 34, 0.95));
+}
+
+.activate-rail-card {
+  display: grid;
+  gap: 14px;
+  border-color: rgba(137, 99, 255, 0.42);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(137, 99, 255, 0.24), transparent 48%),
+    linear-gradient(180deg, rgba(24, 30, 75, 0.9), rgba(8, 16, 32, 0.94));
 }
 
 .contact-card h2 {
@@ -1122,6 +1177,151 @@ a {
   gap: 12px;
 }
 
+.activation-modal-card {
+  grid-template-columns: 0.7fr 1.2fr;
+  width: min(980px, 100%);
+}
+
+.activation-preview {
+  min-height: 580px;
+}
+
+.activation-body {
+  align-content: start;
+  overflow-y: auto;
+  max-height: min(760px, calc(100vh - 48px));
+}
+
+.activation-form {
+  display: grid;
+  gap: 16px;
+}
+
+.activation-heading {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+}
+
+.activation-heading h2 {
+  margin: 0;
+  font-size: 34px;
+  line-height: 1.05;
+}
+
+.activation-heading p {
+  color: #c8d1e2;
+}
+
+.intent-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.intent-options legend {
+  width: 100%;
+  margin-bottom: 2px;
+  color: #8ea0bc;
+  font-size: 12px;
+  font-weight: 780;
+  text-transform: uppercase;
+}
+
+.intent-option {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid rgba(156, 181, 236, 0.18);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.035);
+  color: #d7deef;
+  font-size: 12px;
+  font-weight: 680;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.intent-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.intent-option.selected {
+  border-color: rgba(137, 99, 255, 0.62);
+  background: rgba(124, 77, 255, 0.26);
+  color: white;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.field-label {
+  display: grid;
+  gap: 7px;
+}
+
+.field-label span {
+  color: #9baac3;
+  font-size: 12px;
+  font-weight: 780;
+}
+
+.field-label input,
+.field-label textarea {
+  width: 100%;
+  border: 1px solid rgba(156, 181, 236, 0.18);
+  border-radius: var(--radius);
+  outline: 0;
+  background: rgba(7, 13, 24, 0.68);
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+}
+
+.field-label input {
+  height: 42px;
+  padding: 0 12px;
+}
+
+.field-label textarea {
+  min-height: 106px;
+  padding: 12px;
+  resize: vertical;
+}
+
+.field-label input:focus,
+.field-label textarea:focus {
+  border-color: rgba(137, 99, 255, 0.62);
+  box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.12);
+}
+
+.success-state {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 16px;
+  min-height: 420px;
+}
+
+.success-icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(124, 77, 255, 0.22);
+  color: #cfbdff;
+}
+
 @media (max-width: 1500px) {
   .app-shell {
     grid-template-columns: 230px minmax(0, 1fr) 270px;
@@ -1250,8 +1450,21 @@ a {
     overflow-y: auto;
   }
 
+  .activation-modal-card {
+    grid-template-columns: 1fr;
+  }
+
   .modal-preview {
     min-height: 240px;
+  }
+
+  .activation-preview {
+    min-height: 220px;
+  }
+
+  .activation-body {
+    max-height: none;
+    overflow: visible;
   }
 
   .modal-body {
@@ -1275,6 +1488,10 @@ a {
   .hero-actions,
   .modal-actions {
     display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid {
     grid-template-columns: 1fr;
   }
 
