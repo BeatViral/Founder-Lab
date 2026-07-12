@@ -43,8 +43,8 @@ export const projects: Project[] = [
     description:
       "A clean answer engine and evidence protocol for checking sources, tracing claims, and showing uncertainty before turning the internet into answers.",
     category: "AI / Answer Engine / Evidence",
-    status: "Live",
-    needs: "Live search partners, source-quality feedback, and pilot use cases.",
+    status: "Prototype",
+    needs: "Search partners, source-quality feedback, and pilot use cases.",
     featured: true,
     accent: "violet",
   },
@@ -139,12 +139,12 @@ export const projects: Project[] = [
     name: "PHATSO",
     slug: "phatso",
     url: "https://beatviral.github.io/Phatso/",
-    tagline: "Record like the pros without learning sound engineering.",
+    tagline: "Live and for sale: record like the pros without learning sound engineering.",
     description:
-      "Audio tools for creators who want professional-sounding vocals without becoming engineers.",
+      "A live audio product for creators who want professional-sounding vocals without becoming engineers.",
     category: "Music / Audio Plugin / Creator Tools",
     status: "Live",
-    needs: "Creator demos, before/after examples, and conversion polish.",
+    needs: "Buyer traffic, creator demos, before/after examples, and conversion polish.",
     accent: "cyan",
   },
   {
