@@ -36,6 +36,19 @@ export const projects: Project[] = [
     accent: "green",
   },
   {
+    name: "Not GPT",
+    slug: "not-gpt",
+    url: "https://beatviral.github.io/Not-GPT/",
+    tagline: "Questions sources, repetition, incentives, and uncertainty before showing an answer.",
+    description:
+      "A clean answer engine and evidence protocol for checking sources, tracing claims, and showing uncertainty before turning the internet into answers.",
+    category: "AI / Answer Engine / Evidence",
+    status: "Live",
+    needs: "Live search partners, source-quality feedback, and pilot use cases.",
+    featured: true,
+    accent: "violet",
+  },
+  {
     name: "31 Seats",
     slug: "31-seats",
     url: "https://beatviral.github.io/31-Seats/",

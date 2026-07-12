@@ -63,6 +63,7 @@ const activationIntents = [
 
 const iconMap = [
   { test: /ask|whatsapp|message|tom/i, icon: MessageCircle },
+  { test: /not gpt|gpt|answer engine|evidence|ai/i, icon: Sparkles },
   { test: /31|music|artist|phatso|audio/i, icon: Music2 },
   { test: /truth|sachet|supplement/i, icon: FlaskConical },
   { test: /law|legal/i, icon: Scale },
