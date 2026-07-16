@@ -235,8 +235,8 @@ function App() {
               real-world problems.
             </p>
             <p className="hero-support">
-              Some are live. Some are pilot-ready. Some are early experiments. Each one is a
-              working attempt to turn an insight into a useful product.
+              Zero-to-one Product Engineer who owns the full path from ideation to commercial
+              launch.
             </p>
             <div className="hero-actions">
               <a className="button button-primary" href="#projects">
@@ -384,7 +384,9 @@ function App() {
           <div className="rail-logo">F</div>
           <p className="rail-kicker">Founder profile</p>
           <h2>{founder.name}</h2>
-          <p className="founder-role">Builder. Problem Solver. Product Creator.</p>
+          <p className="founder-role">
+            Zero-to-one Product Engineer who owns the full path from ideation to commercial launch.
+          </p>
           <p>
             I build fast from real problems. Each project starts with a simple question: does this
             solve something people actually feel? Then I turn it into a live page, MVP, or
