@@ -49,6 +49,42 @@ export const projects: Project[] = [
     accent: "violet",
   },
   {
+    name: "Cognito Performance Path",
+    slug: "cognito-performance-path",
+    url: "https://beatviral.github.io/cognito-performance-path/",
+    tagline: "Turn exam evidence and pressure patterns into a clearer performance plan.",
+    description:
+      "An education product concept that compares preparation with test conditions, identifies the real performance gap, and helps students recover when pressure disrupts recall.",
+    category: "Education / AI / Assessment",
+    status: "Prototype",
+    needs: "Student pilots, tutor feedback, and assessment validation.",
+    accent: "green",
+  },
+  {
+    name: "Intent to Offer Engine",
+    slug: "intent-to-offer-engine",
+    url: "https://beatviral.github.io/Intent-to-Offer-Engine/",
+    tagline: "Turn messy client needs into clear, evidence-backed response briefs.",
+    description:
+      "An AI-native mission response engine that interprets client needs, matches verified capabilities, identifies missing confirmations, and creates structured opportunity briefs.",
+    category: "SaaS / AI / Sales Ops",
+    status: "Prototype",
+    needs: "Client workflow pilots, capability library refinement, and response-quality feedback.",
+    accent: "blue",
+  },
+  {
+    name: "Messy In, Beautiful Out",
+    slug: "messy-in-beautiful-out-tenderfy",
+    url: "https://beatviral.github.io/messy-in-beautiful-out-tenderfy/",
+    tagline: "Messy tender knowledge becomes structured, submission-ready work.",
+    description:
+      "A Tenderfy product concept that turns messages, voice notes, documents, and project memory into evidence-backed tender material and reusable product opportunity demos.",
+    category: "AI / Tendering / B2B",
+    status: "Prototype",
+    needs: "Tender teams, workflow feedback, and demo refinement.",
+    accent: "amber",
+  },
+  {
     name: "31 Seats",
     slug: "31-seats",
     url: "https://beatviral.github.io/31-Seats/",
