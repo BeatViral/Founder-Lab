@@ -574,6 +574,74 @@ a {
   gap: 14px;
 }
 
+.capabilities-panel {
+  padding-bottom: 22px;
+}
+
+.capabilities-intro {
+  max-width: 860px;
+  margin: -4px 0 18px;
+  color: #c5cede;
+  font-size: 15px;
+  line-height: 1.58;
+}
+
+.capabilities-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.capability-card {
+  display: grid;
+  gap: 12px;
+  min-height: 184px;
+  padding: 16px;
+  border: 1px solid rgba(156, 181, 236, 0.14);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 14% 0%, rgba(124, 77, 255, 0.14), transparent 38%),
+    linear-gradient(180deg, rgba(15, 28, 49, 0.72), rgba(8, 16, 30, 0.78));
+}
+
+.capability-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.capability-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(137, 99, 255, 0.34);
+  border-radius: var(--radius);
+  background: rgba(124, 77, 255, 0.16);
+  color: #cdbdff;
+}
+
+.capability-card h3 {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.2;
+}
+
+.capability-card p {
+  margin: 0;
+  color: #c9d2e3;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.capability-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  align-self: end;
+}
+
 .feature-card {
   position: relative;
   min-height: 212px;
@@ -1367,6 +1435,10 @@ a {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .capabilities-grid {
+    grid-template-columns: 1fr;
+  }
+
   .stats-strip {
     grid-template-columns: repeat(5, minmax(140px, 1fr));
     overflow-x: auto;
@@ -1526,6 +1598,7 @@ a {
   }
 
   .featured-grid,
+  .capabilities-grid,
   .project-grid {
     grid-template-columns: 1fr;
   }

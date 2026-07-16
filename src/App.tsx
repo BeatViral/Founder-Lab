@@ -37,6 +37,7 @@ const navItems = [
   { label: "Overview", href: "#overview", icon: Blocks },
   { label: "All Projects", href: "#projects", icon: BriefcaseBusiness },
   { label: "Status", href: "#stats", icon: Sparkles },
+  { label: "Capabilities", href: "#capabilities", icon: Code2 },
   { label: "About", href: "#about", icon: Info },
   { label: "Contact", href: "#contact", icon: Mail },
 ];
@@ -59,6 +60,37 @@ const activationIntents = [
   "I want to sponsor the next build",
   "I want to license / white-label this",
   "I want to talk about it",
+];
+
+const capabilityAreas = [
+  {
+    title: "Databases & Backend",
+    icon: Layers3,
+    summary:
+      "PostgreSQL, MongoDB, Supabase, schema design, authentication, row-level security, migrations, storage, and admin workflows.",
+    tags: ["PostgreSQL", "MongoDB", "Supabase", "Auth", "RLS", "Migrations"],
+  },
+  {
+    title: "WhatsApp & Messaging",
+    icon: MessageCircle,
+    summary:
+      "WhatsApp product flows, messaging automations, lead capture, notifications, conversational UX, and user handoff systems.",
+    tags: ["WhatsApp", "Twilio", "Meta APIs", "Automations", "Lead capture"],
+  },
+  {
+    title: "APIs & Integrations",
+    icon: Code2,
+    summary:
+      "REST APIs, webhooks, third-party service integrations, payment-ready workflows, data sync, and clean product-to-product handoffs.",
+    tags: ["REST APIs", "Webhooks", "Integrations", "Data sync", "Automation"],
+  },
+  {
+    title: "Cloud & Deployments",
+    icon: Rocket,
+    summary:
+      "Amazon AWS, server deployments, static sites, production hosting, environment variables, domains, CI/CD, monitoring, and release hygiene.",
+    tags: ["AWS", "Servers", "Hosting", "Domains", "CI/CD", "Monitoring"],
+  },
 ];
 
 const iconMap = [
@@ -264,6 +296,43 @@ function App() {
                 onSelect={setActiveProject}
               />
             ))}
+          </div>
+        </section>
+
+        <section className="panel capabilities-panel" id="capabilities" aria-labelledby="capabilities-title">
+          <div className="section-heading">
+            <div>
+              <Code2 size={17} />
+              <h2 id="capabilities-title">Technical Capabilities</h2>
+            </div>
+          </div>
+          <p className="capabilities-intro">
+            Founder Lab combines product thinking with the full technical stack needed to turn ideas
+            into usable systems: databases, backend logic, messaging, APIs, cloud infrastructure,
+            deployments, and the connective tissue that makes products work in the real world.
+          </p>
+          <div className="capabilities-grid">
+            {capabilityAreas.map((area) => {
+              const Icon = area.icon;
+              return (
+                <article className="capability-card" key={area.title}>
+                  <div className="capability-head">
+                    <span className="capability-icon">
+                      <Icon size={22} />
+                    </span>
+                    <h3>{area.title}</h3>
+                  </div>
+                  <p>{area.summary}</p>
+                  <div className="capability-tags">
+                    {area.tags.map((tag) => (
+                      <span className="tag" key={tag}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </section>
 
