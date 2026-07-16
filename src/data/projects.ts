@@ -85,6 +85,18 @@ export const projects: Project[] = [
     accent: "amber",
   },
   {
+    name: "Messy In, Beautiful Out Home Loans",
+    slug: "messy-in-beautiful-out-home-loans",
+    url: "https://beatviral.github.io/Messy-In-Beautiful-Out-Home-Loans/",
+    tagline: "Messy borrower circumstances become a clear home-loan form draft.",
+    description:
+      "A home-loan product concept that lets borrowers explain their situation naturally, then turns their story into a clearer draft beside the official form while keeping facts, gaps, and review steps visible.",
+    category: "AI / Home Loans / Fintech",
+    status: "Prototype",
+    needs: "Borrower testing, broker feedback, lender workflow review, and compliance language.",
+    accent: "green",
+  },
+  {
     name: "31 Seats",
     slug: "31-seats",
     url: "https://beatviral.github.io/31-Seats/",
