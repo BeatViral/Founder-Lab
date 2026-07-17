@@ -322,43 +322,6 @@ function App() {
           </div>
         </section>
 
-        <section className="panel capabilities-panel" id="capabilities" aria-labelledby="capabilities-title">
-          <div className="section-heading">
-            <div>
-              <Code2 size={17} />
-              <h2 id="capabilities-title">Technical Capabilities</h2>
-            </div>
-          </div>
-          <p className="capabilities-intro">
-            Founder Lab combines product thinking with the full technical stack needed to turn ideas
-            into usable systems: databases, backend logic, messaging, APIs, cloud infrastructure,
-            deployments, and the connective tissue that makes products work in the real world.
-          </p>
-          <div className="capabilities-grid">
-            {capabilityAreas.map((area) => {
-              const Icon = area.icon;
-              return (
-                <article className="capability-card" key={area.title}>
-                  <div className="capability-head">
-                    <span className="capability-icon">
-                      <Icon size={22} />
-                    </span>
-                    <h3>{area.title}</h3>
-                  </div>
-                  <p>{area.summary}</p>
-                  <div className="capability-tags">
-                    {area.tags.map((tag) => (
-                      <span className="tag" key={tag}>
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </section>
-
         <section className="project-tools" aria-label="Project search">
           <label className="search-box">
             <Search size={17} />
@@ -390,6 +353,7 @@ function App() {
             </div>
           )}
         </section>
+
       </main>
 
       <aside className="right-rail">
@@ -458,6 +422,43 @@ function App() {
           <span>{founder.name}</span>
         </section>
       </aside>
+
+      <section className="panel capabilities-panel" id="capabilities" aria-labelledby="capabilities-title">
+        <div className="section-heading">
+          <div>
+            <Code2 size={17} />
+            <h2 id="capabilities-title">Technical Capabilities</h2>
+          </div>
+        </div>
+        <p className="capabilities-intro">
+          Founder Lab combines product thinking with the full technical stack needed to turn ideas
+          into usable systems: databases, backend logic, messaging, APIs, cloud infrastructure,
+          deployments, and the connective tissue that makes products work in the real world.
+        </p>
+        <div className="capabilities-grid">
+          {capabilityAreas.map((area) => {
+            const Icon = area.icon;
+            return (
+              <article className="capability-card" key={area.title}>
+                <div className="capability-head">
+                  <span className="capability-icon">
+                    <Icon size={22} />
+                  </span>
+                  <h3>{area.title}</h3>
+                </div>
+                <p>{area.summary}</p>
+                <div className="capability-tags">
+                  {area.tags.map((tag) => (
+                    <span className="tag" key={tag}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
 
       {detailProject && (
         <ProjectModal project={detailProject} onClose={() => setDetailProject(null)} />
