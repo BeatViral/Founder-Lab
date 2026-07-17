@@ -19,6 +19,7 @@ export type Project = {
   needs?: string;
   featured?: boolean;
   hot?: boolean;
+  commercial?: boolean;
   accent: "green" | "pink" | "amber" | "blue" | "violet" | "orange" | "cyan";
 };
 
@@ -221,6 +222,7 @@ export const projects: Project[] = [
     category: "Music / Audio Plugin / Creator Tools",
     status: "Live",
     needs: "Buyer traffic, creator demos, before/after examples, and conversion polish.",
+    commercial: true,
     accent: "cyan",
   },
   {
@@ -353,6 +355,7 @@ export const projects: Project[] = [
     category: "Health/Body / Music / Wellness",
     status: "Live",
     needs: "Commercial product and delivery system are complete; ready for sales, delivery, and partner conversations.",
+    commercial: true,
     accent: "violet",
   },
   {

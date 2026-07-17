@@ -574,6 +574,63 @@ a {
   gap: 14px;
 }
 
+.commercial-panel {
+  padding-bottom: 22px;
+  border-color: rgba(34, 213, 232, 0.24);
+  background:
+    radial-gradient(circle at 12% 0%, rgba(34, 213, 232, 0.14), transparent 42%),
+    linear-gradient(180deg, rgba(13, 30, 48, 0.92), rgba(8, 16, 30, 0.88));
+}
+
+.commercial-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.commercial-card {
+  min-height: 252px;
+  border-color: rgba(34, 213, 232, 0.2);
+}
+
+.commercial-card-top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.commercial-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 0 10px;
+  border: 1px solid rgba(34, 213, 232, 0.32);
+  border-radius: 999px;
+  background: rgba(34, 213, 232, 0.12);
+  color: #9ef4ff;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.commercial-note {
+  display: block;
+  min-height: 44px;
+  margin: 0 0 12px;
+  color: #f4f8ff;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.commercial-card .feature-actions {
+  flex-wrap: wrap;
+}
+
 .hot-panel {
   padding-bottom: 22px;
   border-color: rgba(249, 191, 45, 0.32);
@@ -962,13 +1019,29 @@ a {
 
 .project-tools {
   display: grid;
-  grid-template-columns: minmax(230px, 320px);
-  justify-content: end;
+  grid-template-columns: minmax(0, 1fr) minmax(230px, 320px);
+  align-items: end;
+  gap: 14px;
   margin-top: 14px;
   padding: 0;
   border: 0;
   background: transparent;
   box-shadow: none;
+}
+
+.portfolio-heading {
+  display: grid;
+  gap: 4px;
+}
+
+.portfolio-heading h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.portfolio-heading span {
+  color: var(--muted);
+  font-size: 13px;
 }
 
 .search-box {
@@ -1709,6 +1782,7 @@ a {
   }
 
   .featured-grid,
+  .commercial-grid,
   .capabilities-grid,
   .project-grid {
     grid-template-columns: 1fr;

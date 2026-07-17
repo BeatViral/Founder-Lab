@@ -31,13 +31,16 @@ import {
 } from "lucide-react";
 import { founder, type Project, projects } from "./data/projects";
 
-const hotProjects = projects.filter((project) => project.hot);
-const featuredProjects = projects.filter((project) => project.featured).slice(0, 4);
+const commercialProjects = projects.filter((project) => project.commercial);
+const portfolioProjects = projects.filter((project) => !project.commercial);
+const hotProjects = portfolioProjects.filter((project) => project.hot);
+const featuredProjects = portfolioProjects.filter((project) => project.featured).slice(0, 4);
 
 const navItems = [
   { label: "Overview", href: "#overview", icon: Blocks },
+  { label: "Commercial", href: "#commercial-products", icon: Rocket },
   { label: "HOT", href: "#hot", icon: Zap },
-  { label: "All Projects", href: "#projects", icon: BriefcaseBusiness },
+  { label: "Portfolio", href: "#projects", icon: BriefcaseBusiness },
   { label: "Status", href: "#stats", icon: Sparkles },
   { label: "Capabilities", href: "#capabilities", icon: Code2 },
   { label: "About", href: "#about", icon: Info },
@@ -120,7 +123,9 @@ function splitCategory(category: string) {
 
 function App() {
   const [query, setQuery] = useState("");
-  const [activeProject, setActiveProject] = useState<Project>(featuredProjects[0] ?? projects[0]);
+  const [activeProject, setActiveProject] = useState<Project>(
+    commercialProjects[0] ?? featuredProjects[0] ?? projects[0],
+  );
   const [detailProject, setDetailProject] = useState<Project | null>(null);
   const [activateProject, setActivateProject] = useState<Project | null>(null);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -143,7 +148,7 @@ function App() {
   const filteredProjects = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
 
-    return projects.filter((project) => {
+    return portfolioProjects.filter((project) => {
       const haystack = [
         project.name,
         project.tagline,
@@ -263,6 +268,26 @@ function App() {
           </div>
         </section>
 
+        <section className="panel commercial-panel" id="commercial-products" aria-labelledby="commercial-title">
+          <div className="section-heading">
+            <div>
+              <Rocket size={17} />
+              <h2 id="commercial-title">Commercial Products</h2>
+            </div>
+          </div>
+          <div className="commercial-grid">
+            {commercialProjects.map((project) => (
+              <ProjectCommercialCard
+                key={project.slug}
+                project={project}
+                onActivate={openActivation}
+                onOpenDetails={openDetails}
+                onSelect={setActiveProject}
+              />
+            ))}
+          </div>
+        </section>
+
         <section className="stats-strip" id="stats" aria-label="Founder Lab stats">
           {stats.map((stat) => {
             const Icon = stat.icon;
@@ -322,19 +347,23 @@ function App() {
           </div>
         </section>
 
-        <section className="project-tools" aria-label="Project search">
+        <section className="project-tools" aria-label="Portfolio project search">
+          <div className="portfolio-heading">
+            <h2>Portfolio Projects</h2>
+            <span>Prototypes, experiments, apps, and live demos</span>
+          </div>
           <label className="search-box">
             <Search size={17} />
             <input
               data-testid="project-search"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search projects..."
+              placeholder="Search portfolio projects..."
             />
           </label>
         </section>
 
-        <section className="project-grid" id="projects" aria-label="All Founder Lab projects">
+        <section className="project-grid" id="projects" aria-label="Founder Lab portfolio projects">
           {filteredProjects.length ? (
             filteredProjects.map((project) => (
               <ProjectCard
@@ -348,7 +377,7 @@ function App() {
           ) : (
             <div className="empty-state">
               <Search size={24} />
-              <h2>No matching projects</h2>
+              <h2>No matching portfolio projects</h2>
               <p>Try another filter or search term.</p>
             </div>
           )}
@@ -468,6 +497,67 @@ function App() {
         <ActivationModal project={activateProject} onClose={() => setActivateProject(null)} />
       )}
     </div>
+  );
+}
+
+function ProjectCommercialCard({
+  project,
+  onActivate,
+  onOpenDetails,
+  onSelect,
+}: {
+  project: Project;
+  onActivate: (project: Project) => void;
+  onOpenDetails: (project: Project) => void;
+  onSelect: (project: Project) => void;
+}) {
+  const Icon = getProjectIcon(project);
+
+  return (
+    <article className={`feature-card commercial-card accent-${project.accent}`} onMouseEnter={() => onSelect(project)}>
+      <div className="commercial-card-top">
+        <span className="commercial-badge">Commercial Product</span>
+        <span className={`status-badge ${statusClass[project.status]}`}>{project.status}</span>
+      </div>
+      <div className="feature-icon">
+        <Icon size={48} />
+      </div>
+      <h3>{project.name}</h3>
+      <p>{project.tagline}</p>
+      <strong className="commercial-note">{project.needs}</strong>
+      <div className="tag-row">
+        {splitCategory(project.category)
+          .slice(0, 3)
+          .map((tag) => (
+            <span className="tag" key={tag}>
+              {tag}
+            </span>
+          ))}
+      </div>
+      <div className="feature-actions">
+        <button
+          className="card-action-button"
+          type="button"
+          data-testid={`commercial-details-${project.slug}`}
+          onClick={() => onOpenDetails(project)}
+        >
+          Details
+        </button>
+        <button
+          className="card-action-button primary"
+          type="button"
+          data-testid={`commercial-activate-${project.slug}`}
+          onClick={() => onActivate(project)}
+        >
+          Activate
+        </button>
+        {project.url && (
+          <a className="card-action-button" href={project.url} target="_blank" rel="noreferrer">
+            View Project
+          </a>
+        )}
+      </div>
+    </article>
   );
 }
 
