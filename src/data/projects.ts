@@ -65,13 +65,14 @@ export const projects: Project[] = [
   {
     name: "Cognito Performance Path",
     slug: "cognito-performance-path",
-    url: "https://beatviral.github.io/cognito-performance-path/",
+    url: "https://beatviral.github.io/cognito-performance-path/docs/",
     tagline: "Turn exam evidence and pressure patterns into a clearer performance plan.",
     description:
       "An education product concept that compares preparation with test conditions, identifies the real performance gap, and helps students recover when pressure disrupts recall.",
     category: "Education / AI / Assessment",
     status: "Prototype",
     needs: "Student pilots, tutor feedback, and assessment validation.",
+    hot: true,
     accent: "green",
   },
   {
