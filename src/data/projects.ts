@@ -76,6 +76,19 @@ export const projects: Project[] = [
     accent: "green",
   },
   {
+    name: "City Safety",
+    slug: "city-safety",
+    url: "https://beatviral.github.io/City-Safety/",
+    tagline: "Never enter a city blind.",
+    description:
+      "A travel-safety product concept that turns natural questions about unfamiliar places, arrival times, routes, and local risks into calm, practical guidance.",
+    category: "Travel Safety / AI / Mobile",
+    status: "Prototype",
+    needs: "Traveler pilots, local-risk datasets, route guidance feedback, and safety copy review.",
+    hot: true,
+    accent: "cyan",
+  },
+  {
     name: "Intent to Offer Engine",
     slug: "intent-to-offer-engine",
     url: "https://beatviral.github.io/Intent-to-Offer-Engine/",
