@@ -31,10 +31,12 @@ import {
 } from "lucide-react";
 import { founder, type Project, projects } from "./data/projects";
 
+const hotProjects = projects.filter((project) => project.hot);
 const featuredProjects = projects.filter((project) => project.featured).slice(0, 4);
 
 const navItems = [
   { label: "Overview", href: "#overview", icon: Blocks },
+  { label: "HOT", href: "#hot", icon: Zap },
   { label: "All Projects", href: "#projects", icon: BriefcaseBusiness },
   { label: "Status", href: "#stats", icon: Sparkles },
   { label: "Capabilities", href: "#capabilities", icon: Code2 },
@@ -96,6 +98,7 @@ const capabilityAreas = [
 const iconMap = [
   { test: /ask|whatsapp|message|tom/i, icon: MessageCircle },
   { test: /not gpt|gpt|answer engine|evidence|ai/i, icon: Sparkles },
+  { test: /phuture|future|decision/i, icon: Sparkles },
   { test: /31|music|artist|phatso|audio/i, icon: Music2 },
   { test: /truth|sachet|supplement/i, icon: FlaskConical },
   { test: /law|legal/i, icon: Scale },
@@ -275,6 +278,26 @@ function App() {
           })}
         </section>
 
+        <section className="panel hot-panel" id="hot" aria-labelledby="hot-title">
+          <div className="section-heading">
+            <div>
+              <Zap size={17} />
+              <h2 id="hot-title">HOT</h2>
+            </div>
+          </div>
+          <div className="hot-grid">
+            {hotProjects.map((project) => (
+              <ProjectHotCard
+                key={project.slug}
+                project={project}
+                onActivate={openActivation}
+                onOpenDetails={openDetails}
+                onSelect={setActiveProject}
+              />
+            ))}
+          </div>
+        </section>
+
         <section className="panel featured-panel" aria-labelledby="featured-title">
           <div className="section-heading">
             <div>
@@ -444,6 +467,57 @@ function App() {
         <ActivationModal project={activateProject} onClose={() => setActivateProject(null)} />
       )}
     </div>
+  );
+}
+
+function ProjectHotCard({
+  project,
+  onActivate,
+  onOpenDetails,
+  onSelect,
+}: {
+  project: Project;
+  onActivate: (project: Project) => void;
+  onOpenDetails: (project: Project) => void;
+  onSelect: (project: Project) => void;
+}) {
+  const Icon = getProjectIcon(project);
+
+  return (
+    <article className={`hot-card accent-${project.accent}`} onMouseEnter={() => onSelect(project)}>
+      <div className="hot-copy">
+        <span className="hot-badge">HOT</span>
+        <h3>{project.name}</h3>
+        <p className="hot-tagline">{project.tagline}</p>
+        <p>{project.description}</p>
+        <div className="tag-row">
+          <span className={`status-badge ${statusClass[project.status]}`}>{project.status}</span>
+          {splitCategory(project.category)
+            .slice(0, 3)
+            .map((tag) => (
+              <span className="tag" key={tag}>
+                {tag}
+              </span>
+            ))}
+        </div>
+      </div>
+      <div className="hot-visual" aria-hidden="true">
+        <Icon size={68} />
+      </div>
+      <div className="hot-actions">
+        <button className="card-action-button" type="button" onClick={() => onOpenDetails(project)}>
+          Details
+        </button>
+        <button className="card-action-button primary" type="button" onClick={() => onActivate(project)}>
+          Activate
+        </button>
+        {project.url && (
+          <a className="card-action-button" href={project.url} target="_blank" rel="noreferrer">
+            View Project
+          </a>
+        )}
+      </div>
+    </article>
   );
 }
 

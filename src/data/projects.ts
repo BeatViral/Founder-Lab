@@ -18,6 +18,7 @@ export type Project = {
   status: ProjectStatus;
   needs?: string;
   featured?: boolean;
+  hot?: boolean;
   accent: "green" | "pink" | "amber" | "blue" | "violet" | "orange" | "cyan";
 };
 
@@ -46,6 +47,19 @@ export const projects: Project[] = [
     status: "Prototype",
     needs: "Search partners, source-quality feedback, and pilot use cases.",
     featured: true,
+    accent: "violet",
+  },
+  {
+    name: "Phuture Me",
+    slug: "phuture-me",
+    url: "https://beatviral.github.io/Phuture-Me/",
+    tagline: "Sow clever. Reap well.",
+    description:
+      "A future-aware human decision companion that helps people compare two plausible paths, explore an aging curve, and leave with a reflective question plus a small reversible experiment.",
+    category: "AI / Decision Companion / Future Planning",
+    status: "Prototype",
+    needs: "User testing, safety review, guided journeys, and partner pilots.",
+    hot: true,
     accent: "violet",
   },
   {
