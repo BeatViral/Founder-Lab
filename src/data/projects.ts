@@ -349,10 +349,10 @@ export const projects: Project[] = [
     url: "https://beatviral.github.io/The-Harmonic-Reset/",
     tagline: "An eight-minute harmonic nervous system calibration tool.",
     description:
-      "A precision harmonic experience designed as a short nervous system reset using audio-led calibration.",
+      "A complete commercial harmonic experience designed as a short nervous system reset using audio-led calibration.",
     category: "Health/Body / Music / Wellness",
-    status: "Prototype",
-    needs: "Evidence framing, user testing, and session packaging.",
+    status: "Live",
+    needs: "Commercial product and delivery system are complete; ready for sales, delivery, and partner conversations.",
     accent: "violet",
   },
   {
